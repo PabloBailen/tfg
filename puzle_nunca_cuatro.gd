@@ -12,6 +12,10 @@ signal puzle_cerrado
 @onready var label_mensaje = $LayoutPrincipal/PanelCapi/LabelMensaje
 @onready var capi_anim = $LayoutPrincipal/PanelCapi/CapiAnim
 
+# --- Nuevas Rutas para el Temporizador ---
+@onready var label_tiempo = $LayoutPrincipal/CenterContainer/PuzzleLayout/LabelTiempo
+@onready var timer_juego = $TimerJuego
+
 # --- Variables del Juego ---
 var grid_state = []
 @export var grid_size: int = 12 
@@ -21,15 +25,20 @@ var grid_state = []
 @export var tex_cruz: Texture2D
 @export var tex_bloqueada: Texture2D
 
+# --- Nuevas Variables para el Temporizador ---
+var segundos_transcurridos = 0
+var juego_terminado = false
+
+# (¡Eliminamos el puzzle_data estático!)
+
 const VACIO = 0
 const CIRCULO = 1
 const CRUZ = 2
-const BLOQUEADO = 3 # (No lo usamos en el generador, pero lo mantenemos)
+const BLOQUEADO = 3
 
 # --- Funciones del Juego ---
 
 func _ready():
-	# Inicializa el generador de números aleatorios
 	randomize()
 
 	# 1. Ajusta la Cuadricula al nuevo tamaño
@@ -45,23 +54,21 @@ func _ready():
 	# 3. Genera la SOLUCIÓN COMPLETA en 'grid_state'
 	generar_solucion()
 	
-	# 4. ¡NUEVO PASO! "Perforamos" la solución para crear el PUZLE
+	# 4. "Perforamos" la solución para crear el PUZLE
 	perforar_puzle()
+	
+	# (¡Eliminamos el bucle que cargaba el puzzle_data estático!)
 
 	# 5. Crea los botones dinámicamente
-	# Este bucle ahora creará botones clicables (VACIO)
-	# y botones desactivados (CIRCULO o CRUZ, que son las pistas)
 	for r in range(grid_size):
 		for c in range(grid_size):
 			var boton = TextureButton.new()
 			var tipo_casilla = grid_state[r][c]
 			
 			if tipo_casilla == VACIO:
-				# ¡ESTO ES AHORA EL PUZLE JUGABLE!
 				boton.pressed.connect(_on_casilla_pressed.bind(r, c))
 				_actualizar_textura(boton, VACIO)
 			else:
-				# ¡ESTAS SON LAS PISTAS!
 				boton.disabled = true
 				_actualizar_textura(boton, tipo_casilla)
 				boton.modulate = Color(0.7, 0.7, 0.7)
@@ -72,48 +79,53 @@ func _ready():
 	boton_comprobar_node.pressed.connect(_on_boton_comprobar_pressed)
 	boton_salir_node.pressed.connect(_on_boton_salir_pressed)
 	
+	# Conecta el temporizador
+	timer_juego.timeout.connect(_on_timer_juego_timeout)
+	_actualizar_label_tiempo() # Pone el tiempo en "00:00"
+	
 	# Asegura que Capi empiece en la animación de reposo
 	capi_anim.play("idle")
 	
 	# Muestra el mensaje de bienvenida de Capi
 	mostrar_mensaje.call_deferred("¡Rellena las casillas vacías! ¡Pero ojo, nunca 4 símbolos iguales seguidos!")
 
+# ----------------------------------------------
+# Funciones para el Temporizador
+# ----------------------------------------------
+func _on_timer_juego_timeout():
+	if juego_terminado:
+		return 
 
+	segundos_transcurridos += 1
+	_actualizar_label_tiempo()
+
+func _actualizar_label_tiempo():
+	var minutos = segundos_transcurridos / 60
+	var segundos = segundos_transcurridos % 60
+	label_tiempo.text = "Tiempo: %02d:%02d" % [minutos, segundos]
 # ----------------------------------------------
-# ¡NUEVA FUNCIÓN: EL "PERFORADOR" (PUZZLER)!
-# ----------------------------------------------
-# Quita piezas de la solución para crear el puzle
+
+# --- (El resto de tu código es idéntico) ---
+
 func perforar_puzle():
 	var total_celdas = grid_size * grid_size
 	var num_a_quitar = 0
-	
-	# Define la dificultad basándose en el tamaño
 	match grid_size:
-		5: # Fácil (5x5)
-			# Quitamos ~40% de las piezas
+		5:
 			num_a_quitar = int(total_celdas * 0.40)
-		8: # Medio (8x8)
-			# Quitamos ~60% de las piezas
+		8:
 			num_a_quitar = int(total_celdas * 0.60)
-		12: # Difícil (12x12)
-			# Quitamos ~75% de las piezas
-			num_a_quitar = int(total_celdas * 0.75)
+		12:
+			num_a_quitar = int(total_celdas * 0.5)
 	
 	var contador = 0
-	# Sigue haciendo agujeros hasta que alcancemos el número deseado
 	while contador < num_a_quitar:
-		var r = randi() % grid_size # Elige una fila aleatoria
-		var c = randi() % grid_size # Elige una columna aleatoria
-		
-		# Si la casilla no está ya vacía, la vaciamos
+		var r = randi() % grid_size
+		var c = randi() % grid_size
 		if grid_state[r][c] != VACIO:
 			grid_state[r][c] = VACIO
 			contador += 1
 			
-# ----------------------------------------------
-# FUNCIÓN SOLUCIONADOR (SOLVER)
-# ----------------------------------------------
-# (Sin cambios respecto a la versión anterior)
 func generar_solucion():
 	for r in range(grid_size):
 		for c in range(grid_size):
@@ -135,16 +147,11 @@ func generar_solucion():
 				
 	return true
 
-# ----------------------------------------------
-# FUNCIÓN VALIDADOR RÁPIDO
-# ----------------------------------------------
-# (Sin cambios respecto a la versión anterior)
 func _es_movimiento_valido(r, c):
 	var tipo_actual = grid_state[r][c]
 	if tipo_actual == VACIO:
 		return true
 
-	# Comprobar Fila (Horizontal)
 	var contador = 0
 	for i in range(grid_size):
 		if grid_state[r][i] == tipo_actual:
@@ -153,7 +160,6 @@ func _es_movimiento_valido(r, c):
 		else:
 			contador = 0
 	
-	# Comprobar Columna (Vertical)
 	contador = 0
 	for i in range(grid_size):
 		if grid_state[i][c] == tipo_actual:
@@ -162,7 +168,6 @@ func _es_movimiento_valido(r, c):
 		else:
 			contador = 0
 	
-	# Comprobar Diagonales
 	contador = 0
 	for i in range(-grid_size + 1, grid_size):
 		for j in range(grid_size):
@@ -191,9 +196,6 @@ func _es_movimiento_valido(r, c):
 
 	return true
 
-# --- (El resto de funciones no necesitan cambios) ---
-
-# Muestra un mensaje en el panel de Capi
 func mostrar_mensaje(texto):
 	label_mensaje.text = texto
 	panel_capi.visible = true
@@ -206,15 +208,16 @@ func mostrar_mensaje(texto):
 	capi_anim.play("idle")
 
 
-# Se llama CADA VEZ que el jugador pulsa una casilla VACÍA
 func _on_casilla_pressed(r, c):
+	if juego_terminado:
+		return
+
 	grid_state[r][c] = (grid_state[r][c] + 1) % 3
 	var i = (r * grid_size) + c
 	var boton = cuadricula_node.get_child(i)
 	_actualizar_textura(boton, grid_state[r][c])
 
 
-# Función ayudante para poner la textura correcta
 func _actualizar_textura(boton, tipo):
 	match tipo:
 		VACIO:
@@ -226,8 +229,10 @@ func _actualizar_textura(boton, tipo):
 		BLOQUEADO:
 			boton.texture_normal = tex_bloqueada
 
-# Función "Juez" - Se llama al pulsar "Comprobar"
 func _on_boton_comprobar_pressed():
+	if juego_terminado:
+		return
+
 	print("Comprobando victoria...")
 	
 	var resultado = _comprobar_victoria()
@@ -238,33 +243,30 @@ func _on_boton_comprobar_pressed():
 		var mensaje_victoria = "¡Genial! ¡Lo has conseguido! Has entendido la lógica."
 		print(mensaje_victoria)
 		
-		await mostrar_mensaje(mensaje_victoria)
-		await get_tree().create_timer(1.0).timeout
+		juego_terminado = true
+		timer_juego.stop()
+		boton_comprobar_node.disabled = true
 		
-		nivel_completado.emit()
+		await mostrar_mensaje(mensaje_victoria)
+		
+		# Ya no emitimos la señal
+		
 	else:
 		print("Aún no... Error: %s" % mensaje_error)
 		await mostrar_mensaje(mensaje_error)
 
 
-# Función "Botón de Salida"
 func _on_boton_salir_pressed():
 	print("¡CLIC EN SALIR! - Emitiendo señal...")
 	puzle_cerrado.emit()
 
-# ----------------------------------------------
-# Función de Lógica de Victoria (El "Libro de Reglas")
-# ----------------------------------------------
-# (Sin cambios respecto a la versión anterior)
 func _comprobar_victoria():
 	
-	# Comprobación 1: ¿Está el tablero LLENO?
 	for r in range(grid_size):
 		for c in range(grid_size):
 			if grid_state[r][c] == VACIO:
 				return [false, "¡Oh! Parece que aún te quedan casillas vacías por rellenar."]
 
-	# Comprobación 2: Regla "Nunca Cuatro"
 	for r in range(grid_size):
 		var contador_circulos = 0
 		var contador_cruces = 0
@@ -284,7 +286,6 @@ func _comprobar_victoria():
 			if contador_cruces >= 4:
 				return [false, "¡Cuidado! Revisa la fila %s. Veo cuatro o más cruces seguidas." % (r + 1)]
 
-	# Comprobar Columnas
 	for c in range(grid_size):
 		var contador_circulos = 0
 		var contador_cruces = 0
@@ -304,7 +305,6 @@ func _comprobar_victoria():
 			if contador_cruces >= 4:
 				return [false, "¡Cuidado! Revisa la columna %s. Tienes cuatro o más cruces seguidas." % (c + 1)]
 
-	# Comprobar Diagonales
 	for i in range(-grid_size + 1, grid_size):
 		var contador_circulos_1 = 0
 		var contador_cruces_1 = 0
@@ -349,5 +349,4 @@ func _comprobar_victoria():
 				if contador_cruces_2 >= 4:
 					return [false, "¡Uy! He encontrado cuatro o más cruces seguidas en una diagonal."]
 
-	# ----- VICTORIA -----
 	return [true, "¡VICTORIA!"]
