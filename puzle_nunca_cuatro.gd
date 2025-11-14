@@ -6,15 +6,13 @@ signal puzle_cerrado
 
 # --- Rutas a Nodos ---
 @onready var cuadricula_node = $LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula
-@onready var boton_comprobar_node = $LayoutPrincipal/CenterContainer/PuzzleLayout/ButtonLayout/BotonComprobar
-@onready var boton_salir_node = $LayoutPrincipal/CenterContainer/PuzzleLayout/ButtonLayout/BotonSalir
+@onready var boton_comprobar_node = $LayoutPrincipal/PanelCapi/ButtonLayout/BotonComprobar
+@onready var boton_salir_node = $LayoutPrincipal/PanelCapi/ButtonLayout/BotonSalir
 @onready var panel_capi = $LayoutPrincipal/PanelCapi
-@onready var label_mensaje = $LayoutPrincipal/PanelCapi/LabelMensaje
-@onready var capi_anim = $LayoutPrincipal/PanelCapi/CapiAnim
-
-# --- Nuevas Rutas para el Temporizador ---
-@onready var label_tiempo = $LayoutPrincipal/CenterContainer/PuzzleLayout/LabelTiempo
-@onready var timer_juego = $TimerJuego
+@onready var label_mensaje = $LayoutPrincipal/PanelCapi/MensajeWrapper/LabelMensaje
+@onready var capi_anim = $LayoutPrincipal/PanelCapi/CapiWrapper/CapiAnim
+@onready var label_tiempo = $LayoutPrincipal/PanelCapi/TimerWrapper/LabelTiempo
+@onready var timer_juego = $LayoutPrincipal/PanelCapi/TimerJuego
 
 # --- Variables del Juego ---
 var grid_state = []
@@ -25,11 +23,9 @@ var grid_state = []
 @export var tex_cruz: Texture2D
 @export var tex_bloqueada: Texture2D
 
-# --- Nuevas Variables para el Temporizador ---
 var segundos_transcurridos = 0
 var juego_terminado = false
 
-# (¡Eliminamos el puzzle_data estático!)
 
 const VACIO = 0
 const CIRCULO = 1
@@ -57,7 +53,7 @@ func _ready():
 	# 4. "Perforamos" la solución para crear el PUZLE
 	perforar_puzle()
 	
-	# (¡Eliminamos el bucle que cargaba el puzzle_data estático!)
+	# (El bucle que cargaba puzzle_data ha sido eliminado)
 
 	# 5. Crea los botones dinámicamente
 	for r in range(grid_size):
@@ -81,7 +77,7 @@ func _ready():
 	
 	# Conecta el temporizador
 	timer_juego.timeout.connect(_on_timer_juego_timeout)
-	_actualizar_label_tiempo() # Pone el tiempo en "00:00"
+	_actualizar_label_tiempo()
 	
 	# Asegura que Capi empiece en la animación de reposo
 	capi_anim.play("idle")
@@ -94,7 +90,7 @@ func _ready():
 # ----------------------------------------------
 func _on_timer_juego_timeout():
 	if juego_terminado:
-		return 
+		return
 
 	segundos_transcurridos += 1
 	_actualizar_label_tiempo()
@@ -105,18 +101,20 @@ func _actualizar_label_tiempo():
 	label_tiempo.text = "Tiempo: %02d:%02d" % [minutos, segundos]
 # ----------------------------------------------
 
-# --- (El resto de tu código es idéntico) ---
-
+# ----------------------------------------------
+# Función "Perforador" (PUZZLER)
+# ----------------------------------------------
 func perforar_puzle():
 	var total_celdas = grid_size * grid_size
 	var num_a_quitar = 0
+	
 	match grid_size:
 		5:
 			num_a_quitar = int(total_celdas * 0.40)
 		8:
-			num_a_quitar = int(total_celdas * 0.60)
+			num_a_quitar = int(total_celdas * 0.50)
 		12:
-			num_a_quitar = int(total_celdas * 0.5)
+			num_a_quitar = int(total_celdas * 0.50)
 	
 	var contador = 0
 	while contador < num_a_quitar:
@@ -126,6 +124,9 @@ func perforar_puzle():
 			grid_state[r][c] = VACIO
 			contador += 1
 			
+# ----------------------------------------------
+# FUNCIÓN SOLUCIONADOR (SOLVER)
+# ----------------------------------------------
 func generar_solucion():
 	for r in range(grid_size):
 		for c in range(grid_size):
@@ -147,6 +148,9 @@ func generar_solucion():
 				
 	return true
 
+# ----------------------------------------------
+# FUNCIÓN VALIDADOR RÁPIDO
+# ----------------------------------------------
 func _es_movimiento_valido(r, c):
 	var tipo_actual = grid_state[r][c]
 	if tipo_actual == VACIO:
@@ -195,6 +199,8 @@ func _es_movimiento_valido(r, c):
 		contador = 0
 
 	return true
+
+# --- (El resto de funciones) ---
 
 func mostrar_mensaje(texto):
 	label_mensaje.text = texto
@@ -248,8 +254,6 @@ func _on_boton_comprobar_pressed():
 		boton_comprobar_node.disabled = true
 		
 		await mostrar_mensaje(mensaje_victoria)
-		
-		# Ya no emitimos la señal
 		
 	else:
 		print("Aún no... Error: %s" % mensaje_error)

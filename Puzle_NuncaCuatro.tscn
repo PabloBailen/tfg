@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b768sgio26iig"]
+[gd_scene load_steps=12 format=3 uid="uid://b768sgio26iig"]
 
 [ext_resource type="Script" uid="uid://cb4pjumoxre8p" path="res://puzle_nunca_cuatro.gd" id="1_y8jj1"]
 [ext_resource type="Texture2D" uid="uid://nntgcxecrxrf" path="res://vacio.jpg" id="2_1uktq"]
@@ -30,6 +30,24 @@ animations = [{
 "name": &"talking",
 "speed": 5.0
 }]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prf5h"]
+bg_color = Color(2.2621452e-06, 0.65042984, 0.37352267, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.049231544, 0.22145897, 0.110582165, 0.6)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0p2s"]
+bg_color = Color(0.5346198, 0.1980575, 0.123727284, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.39786783, 0.1009871, 0.01637035, 0.6)
+shadow_size = 2
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -66,19 +84,66 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 20
 alignment = 1
 
-[node name="CapiAnim" type="AnimatedSprite2D" parent="LayoutPrincipal/PanelCapi"]
+[node name="TimerWrapper" type="MarginContainer" parent="LayoutPrincipal/PanelCapi"]
+layout_mode = 2
+theme_override_constants/margin_top = -300
+
+[node name="LabelTiempo" type="Label" parent="LayoutPrincipal/PanelCapi/TimerWrapper"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="MensajeWrapper" type="MarginContainer" parent="LayoutPrincipal/PanelCapi"]
+layout_mode = 2
+theme_override_constants/margin_top = -30
+theme_override_constants/margin_bottom = 0
+
+[node name="LabelMensaje" type="Label" parent="LayoutPrincipal/PanelCapi/MensajeWrapper"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="CapiWrapper" type="Control" parent="LayoutPrincipal/PanelCapi"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="CapiAnim" type="AnimatedSprite2D" parent="LayoutPrincipal/PanelCapi/CapiWrapper"]
 auto_translate_mode = 1
-position = Vector2(345, 690)
+position = Vector2(445, 294)
 scale = Vector2(0.65, 0.65)
 sprite_frames = SubResource("SpriteFrames_0muox")
 animation = &"idle"
 
-[node name="LabelMensaje" type="Label" parent="LayoutPrincipal/PanelCapi"]
+[node name="TimerJuego" type="Timer" parent="LayoutPrincipal/PanelCapi"]
+autostart = true
+
+[node name="ButtonLayout" type="HBoxContainer" parent="LayoutPrincipal/PanelCapi"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-horizontal_alignment = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="BotonComprobar" type="Button" parent="LayoutPrincipal/PanelCapi/ButtonLayout"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52100307, 1, 0.5765099, 1)
+theme_override_colors/font_hover_color = Color(0, 0.78168285, 0.16350457, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.7469847, 0.31648442, 1)
+theme_override_colors/icon_hover_color = Color(0.38754573, 0.75158376, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.3776325, 0.73978424, 0.43815508, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_prf5h")
+text = "Comprobar"
+
+[node name="BotonSalir" type="Button" parent="LayoutPrincipal/PanelCapi/ButtonLayout"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96280235, 0.2449837, 0.36194044, 1)
+theme_override_colors/font_hover_color = Color(0.9545086, 0.28157738, 0.23671526, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_g0p2s")
+text = "Salir"
 
 [node name="CenterContainer" type="CenterContainer" parent="LayoutPrincipal"]
 layout_mode = 2
@@ -90,31 +155,6 @@ size_flags_stretch_ratio = 2.0
 layout_mode = 2
 alignment = 1
 
-[node name="LabelTiempo" type="Label" parent="LayoutPrincipal/CenterContainer/PuzzleLayout"]
-layout_mode = 2
-horizontal_alignment = 1
-
 [node name="Cuadricula" type="GridContainer" parent="LayoutPrincipal/CenterContainer/PuzzleLayout"]
 layout_mode = 2
 columns = 12
-
-[node name="ButtonLayout" type="HBoxContainer" parent="LayoutPrincipal/CenterContainer/PuzzleLayout"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
-
-[node name="BotonComprobar" type="Button" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/ButtonLayout"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.52100307, 1, 0.5765099, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0.3776325, 0.73978424, 0.43815508, 1)
-text = "Comprobar"
-
-[node name="BotonSalir" type="Button" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/ButtonLayout"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.96280235, 0.2449837, 0.36194044, 1)
-theme_override_colors/font_hover_color = Color(0.9545086, 0.28157738, 0.23671526, 1)
-text = "Salir"
-
-[node name="TimerJuego" type="Timer" parent="."]
-autostart = true
