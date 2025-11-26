@@ -4,11 +4,12 @@ extends Control
 signal nivel_completado
 signal puzle_cerrado
 
-# --- Rutas a Nodos ---
+# --- Rutas a Nodos (Corregidas) ---
 @onready var cuadricula_node = $LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula
 @onready var boton_comprobar_node = $LayoutPrincipal/PanelCapi/ButtonLayout/BotonComprobar
 @onready var boton_salir_node = $LayoutPrincipal/PanelCapi/ButtonLayout/BotonSalir
 @onready var panel_capi = $LayoutPrincipal/PanelCapi
+# ¡LÍNEA CORREGIDA! Ahora apunta a MensajeWrapper
 @onready var label_mensaje = $LayoutPrincipal/PanelCapi/MensajeWrapper/LabelMensaje
 @onready var capi_anim = $LayoutPrincipal/PanelCapi/CapiWrapper/CapiAnim
 @onready var label_tiempo = $LayoutPrincipal/PanelCapi/TimerWrapper/LabelTiempo
@@ -23,9 +24,9 @@ var grid_state = []
 @export var tex_cruz: Texture2D
 @export var tex_bloqueada: Texture2D
 
+# --- Nuevas Variables para el Temporizador ---
 var segundos_transcurridos = 0
 var juego_terminado = false
-
 
 const VACIO = 0
 const CIRCULO = 1
@@ -52,8 +53,6 @@ func _ready():
 	
 	# 4. "Perforamos" la solución para crear el PUZLE
 	perforar_puzle()
-	
-	# (El bucle que cargaba puzzle_data ha sido eliminado)
 
 	# 5. Crea los botones dinámicamente
 	for r in range(grid_size):
@@ -77,7 +76,7 @@ func _ready():
 	
 	# Conecta el temporizador
 	timer_juego.timeout.connect(_on_timer_juego_timeout)
-	_actualizar_label_tiempo()
+	_actualizar_label_tiempo() # Pone el tiempo en "00:00"
 	
 	# Asegura que Capi empiece en la animación de reposo
 	capi_anim.play("idle")
@@ -90,7 +89,7 @@ func _ready():
 # ----------------------------------------------
 func _on_timer_juego_timeout():
 	if juego_terminado:
-		return
+		return 
 
 	segundos_transcurridos += 1
 	_actualizar_label_tiempo()
@@ -107,14 +106,10 @@ func _actualizar_label_tiempo():
 func perforar_puzle():
 	var total_celdas = grid_size * grid_size
 	var num_a_quitar = 0
-	
 	match grid_size:
-		5:
-			num_a_quitar = int(total_celdas * 0.40)
-		8:
-			num_a_quitar = int(total_celdas * 0.50)
-		12:
-			num_a_quitar = int(total_celdas * 0.50)
+		5: num_a_quitar = int(total_celdas * 0.40)
+		8: num_a_quitar = int(total_celdas * 0.60)
+		12: num_a_quitar = int(total_celdas * 0.50)
 	
 	var contador = 0
 	while contador < num_a_quitar:
@@ -200,7 +195,7 @@ func _es_movimiento_valido(r, c):
 
 	return true
 
-# --- (El resto de funciones) ---
+# --- (El resto de funciones de UI) ---
 
 func mostrar_mensaje(texto):
 	label_mensaje.text = texto
@@ -215,32 +210,22 @@ func mostrar_mensaje(texto):
 
 
 func _on_casilla_pressed(r, c):
-	if juego_terminado:
-		return
-
+	if juego_terminado: return
 	grid_state[r][c] = (grid_state[r][c] + 1) % 3
 	var i = (r * grid_size) + c
 	var boton = cuadricula_node.get_child(i)
 	_actualizar_textura(boton, grid_state[r][c])
 
-
 func _actualizar_textura(boton, tipo):
 	match tipo:
-		VACIO:
-			boton.texture_normal = tex_vacia
-		CIRCULO:
-			boton.texture_normal = tex_circulo
-		CRUZ:
-			boton.texture_normal = tex_cruz
-		BLOQUEADO:
-			boton.texture_normal = tex_bloqueada
+		VACIO: boton.texture_normal = tex_vacia
+		CIRCULO: boton.texture_normal = tex_circulo
+		CRUZ: boton.texture_normal = tex_cruz
+		BLOQUEADO: boton.texture_normal = tex_bloqueada
 
 func _on_boton_comprobar_pressed():
-	if juego_terminado:
-		return
-
+	if juego_terminado: return
 	print("Comprobando victoria...")
-	
 	var resultado = _comprobar_victoria()
 	var es_valido = resultado[0]
 	var mensaje_error = resultado[1]
@@ -248,24 +233,20 @@ func _on_boton_comprobar_pressed():
 	if es_valido == true:
 		var mensaje_victoria = "¡Genial! ¡Lo has conseguido! Has entendido la lógica."
 		print(mensaje_victoria)
-		
 		juego_terminado = true
 		timer_juego.stop()
 		boton_comprobar_node.disabled = true
-		
 		await mostrar_mensaje(mensaje_victoria)
-		
 	else:
 		print("Aún no... Error: %s" % mensaje_error)
 		await mostrar_mensaje(mensaje_error)
-
 
 func _on_boton_salir_pressed():
 	print("¡CLIC EN SALIR! - Emitiendo señal...")
 	puzle_cerrado.emit()
 
+# Esta función valida el tablero FINAL del jugador
 func _comprobar_victoria():
-	
 	for r in range(grid_size):
 		for c in range(grid_size):
 			if grid_state[r][c] == VACIO:
@@ -284,11 +265,8 @@ func _comprobar_victoria():
 			else:
 				contador_circulos = 0
 				contador_cruces = 0
-				
-			if contador_circulos >= 4:
-				return [false, "¡Cuidado! Revisa la fila %s. Veo cuatro o más círculos seguidos." % (r + 1)]
-			if contador_cruces >= 4:
-				return [false, "¡Cuidado! Revisa la fila %s. Veo cuatro o más cruces seguidas." % (r + 1)]
+			if contador_circulos >= 4: return [false, "¡Cuidado! Revisa la fila %s." % (r + 1)]
+			if contador_cruces >= 4: return [false, "¡Cuidado! Revisa la fila %s." % (r + 1)]
 
 	for c in range(grid_size):
 		var contador_circulos = 0
@@ -303,54 +281,34 @@ func _comprobar_victoria():
 			else:
 				contador_circulos = 0
 				contador_cruces = 0
-				
-			if contador_circulos >= 4:
-				return [false, "¡Cuidado! Revisa la columna %s. Tienes cuatro o más círculos seguidos." % (c + 1)]
-			if contador_cruces >= 4:
-				return [false, "¡Cuidado! Revisa la columna %s. Tienes cuatro o más cruces seguidas." % (c + 1)]
+			if contador_circulos >= 4: return [false, "¡Cuidado! Revisa la columna %s." % (c + 1)]
+			if contador_cruces >= 4: return [false, "¡Cuidado! Revisa la columna %s. Tienes cuatro o más cruces seguidas." % (c + 1)]
 
 	for i in range(-grid_size + 1, grid_size):
 		var contador_circulos_1 = 0
 		var contador_cruces_1 = 0
 		var contador_circulos_2 = 0
 		var contador_cruces_2 = 0
-		
 		for j in range(grid_size):
-			var r1 = j
-			var c1 = i + j
-			var r2 = j
-			var c2 = grid_size - 1 - (i + j)
+			var r1 = j; var c1 = i + j
+			var r2 = j; var c2 = grid_size - 1 - (i + j)
 
 			if c1 >= 0 and c1 < grid_size:
 				if grid_state[r1][c1] == CIRCULO:
-					contador_circulos_1 += 1
-					contador_cruces_1 = 0
+					contador_circulos_1 += 1; contador_cruces_1 = 0
 				elif grid_state[r1][c1] == CRUZ:
-					contador_circulos_1 += 1
-					contador_circulos_1 = 0
-				else:
-					contador_circulos_1 = 0
-					contador_circulos_1 = 0
-					
-				if contador_circulos_1 >= 4:
-					return [false, "¡Uy! He encontrado cuatro o más círculos seguidos en una diagonal."]
-				if contador_cruces_1 >= 4:
-					return [false, "¡Uy! He encontrado cuatro o más cruces seguidas en una diagonal."]
+					contador_cruces_1 += 1; contador_circulos_1 = 0
+				else: contador_circulos_1 = 0; contador_cruces_1 = 0
+				if contador_circulos_1 >= 4: return [false, "¡Uy! 4 círculos en diagonal."]
+				if contador_cruces_1 >= 4: return [false, "¡Uy! 4 cruces en diagonal."]
 
 			if c2 >= 0 and c2 < grid_size:
 				if grid_state[r2][c2] == CIRCULO:
-					contador_circulos_2 += 1
-					contador_cruces_2 = 0
+					contador_circulos_2 += 1; contador_cruces_2 = 0
 				elif grid_state[r2][c2] == CRUZ:
-					contador_circulos_2 += 1
-					contador_circulos_2 = 0
-				else:
-					contador_circulos_2 = 0
-					contador_circulos_2 = 0
-
-				if contador_circulos_2 >= 4:
-					return [false, "¡Uy! He encontrado cuatro o más círculos seguidos en una diagonal."]
-				if contador_cruces_2 >= 4:
-					return [false, "¡Uy! He encontrado cuatro o más cruces seguidas en una diagonal."]
+					contador_cruces_2 += 1; contador_circulos_2 = 0
+				else: contador_circulos_2 = 0; contador_cruces_2 = 0
+				if contador_circulos_2 >= 4: return [false, "¡Uy! 4 círculos en diagonal."]
+				if contador_cruces_2 >= 4: return [false, "¡Uy! 4 cruces en diagonal."]
 
 	return [true, "¡VICTORIA!"]

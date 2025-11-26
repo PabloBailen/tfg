@@ -142,6 +142,8 @@ custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96280235, 0.2449837, 0.36194044, 1)
 theme_override_colors/font_hover_color = Color(0.9545086, 0.28157738, 0.23671526, 1)
+theme_override_colors/icon_hover_color = Color(0.4944216, 0.14564142, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.7476383, 0.21655259, 0.13058344, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_g0p2s")
 text = "Salir"
 

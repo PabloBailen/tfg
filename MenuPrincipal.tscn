@@ -1,0 +1,197 @@
+[gd_scene load_steps=9 format=3 uid="uid://be705hqbm20x4"]
+
+[ext_resource type="Script" uid="uid://dgk5om1mfanlm" path="res://menu_principal.gd" id="1_bj1uy"]
+[ext_resource type="Texture2D" uid="uid://dem7y5quoaie7" path="res://capi_titulo.jpg" id="2_ba235"]
+
+[sub_resource type="Gradient" id="Gradient_ba235"]
+colors = PackedColorArray(0, 0.64632213, 0.48191392, 1, 0, 0.53188986, 0.91223264, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5dpk2"]
+gradient = SubResource("Gradient_ba235")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ba235"]
+bg_color = Color(0, 0, 0, 0.44313726)
+border_color = Color(0.3888199, 0.9169013, 0.6686955, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 12
+
+[sub_resource type="Animation" id="Animation_ba235"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuLayout:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuLayout:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0oe1n"]
+resource_name = "intro_scroll"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuLayout:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -500), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuLayout:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5dpk2"]
+_data = {
+&"RESET": SubResource("Animation_ba235"),
+&"intro_scroll": SubResource("Animation_0oe1n")
+}
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bj1uy")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ba235")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MenuLayout" type="VBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -500.0
+offset_bottom = 427.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Titulo" type="Label" parent="MenuLayout"]
+clip_children = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.124833345, 1, 0.110000014, 1)
+theme_override_colors/font_shadow_color = Color(1.92523e-06, 0.7109165, 0.2755422, 1)
+theme_override_colors/font_outline_color = Color(0.108898036, 0.29431877, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 2
+theme_override_font_sizes/font_size = 60
+text = "CAPIBYTE: AVENTURA DIGITAL"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuLayout/Titulo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_5dpk2")
+
+[node name="Control" type="Control" parent="MenuLayout"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="ButtonLayout" type="VBoxContainer" parent="MenuLayout"]
+layout_mode = 2
+alignment = 1
+
+[node name="BotonJugar" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.36897963, 0.7597314, 0.2981299, 1)
+theme_override_colors/font_hover_color = Color(0.29683748, 0.6402162, 0.36547616, 1)
+theme_override_colors/icon_normal_color = Color(0.53581613, 0.47107124, 0.123113, 0.43137255)
+theme_override_colors/icon_hover_color = Color(6.256998e-07, 0.3746528, 0.30995604, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0.4180395, 0.29658043, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ba235")
+text = "JUGAR"
+
+[node name="BotonOpciones" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.36897963, 0.7597314, 0.2981299, 1)
+theme_override_colors/font_hover_color = Color(0.29683748, 0.6402162, 0.36547616, 1)
+theme_override_colors/icon_normal_color = Color(0.53581613, 0.47107124, 0.123113, 0.43137255)
+theme_override_colors/icon_hover_color = Color(6.256998e-07, 0.3746528, 0.30995604, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0.4180395, 0.29658043, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ba235")
+text = "OPCIONES"
+
+[node name="BotonCreditos" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.36897963, 0.7597314, 0.2981299, 1)
+theme_override_colors/font_hover_color = Color(0.29683748, 0.6402162, 0.36547616, 1)
+theme_override_colors/icon_normal_color = Color(0.53581613, 0.47107124, 0.123113, 0.43137255)
+theme_override_colors/icon_hover_color = Color(6.256998e-07, 0.3746528, 0.30995604, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0.4180395, 0.29658043, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ba235")
+text = "CRÉDITOS"
+
+[node name="BotonSalir" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.36897963, 0.7597314, 0.2981299, 1)
+theme_override_colors/font_hover_color = Color(0.29683748, 0.6402162, 0.36547616, 1)
+theme_override_colors/icon_normal_color = Color(0.53581613, 0.47107124, 0.123113, 0.43137255)
+theme_override_colors/icon_hover_color = Color(6.256998e-07, 0.3746528, 0.30995604, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0.4180395, 0.29658043, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ba235")
+text = "SALIR DEL JUEGO"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5dpk2")
+}
+autoplay = "intro_scroll"
