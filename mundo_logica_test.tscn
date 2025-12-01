@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dj8sfcro44gsx"]
 
-[ext_resource type="Script" uid="uid://ptf4dofmynnr" path="res://mundo_logica_test.gd" id="1_60jci"]
+[ext_resource type="Script" uid="uid://ptf4dofmynnr" path="res://menu_niveles_logica.gd" id="1_60jci"]
 
 [node name="MundoLogicaTest" type="Node2D"]
 script = ExtResource("1_60jci")

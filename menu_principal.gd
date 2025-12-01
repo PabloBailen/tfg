@@ -15,7 +15,7 @@ func _ready():
 
 func _on_boton_jugar_pressed():
 	# Llama al Director (Main) para cambiar al juego
-	get_tree().root.get_node("Main").change_scene_to_file("res://MundoLogica_TEST.tscn")
+	get_tree().root.get_node("Main").change_scene_to_file("res://HubMundos.tscn")
 
 func _on_boton_salir_pressed():
 	get_tree().quit()

@@ -1,0 +1,117 @@
+[gd_scene load_steps=7 format=3 uid="uid://bw5ujwco10vmp"]
+
+[ext_resource type="Script" uid="uid://ptf4dofmynnr" path="res://menu_niveles_logica.gd" id="1_34qer"]
+[ext_resource type="Texture2D" uid="uid://bxn8npei3bmao" path="res://mundo_logica.png" id="2_ipc75"]
+[ext_resource type="StyleBox" uid="uid://ddfl0kpk4xjqf" path="res://Volver.tres" id="3_34qer"]
+[ext_resource type="StyleBox" uid="uid://b7dw04famh27u" path="res://MenuPrincipal.tres" id="4_a0m6a"]
+[ext_resource type="StyleBox" uid="uid://dqj5nphrw1e0e" path="res://VolverH.tres" id="5_lbaht"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0m6a"]
+bg_color = Color(0.6800455, 0, 0.004753778, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45846653, 0.03923065, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MenuNivelesLogica" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_34qer")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ipc75")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridNiveles" type="GridContainer" parent="ScrollContainer/CenterContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 80
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="PanelDificultad" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1200.0
+offset_top = 300.0
+offset_right = 1406.0
+offset_bottom = 773.0
+theme_override_styles/panel = ExtResource("4_a0m6a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelDificultad"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 80
+
+[node name="Label" type="Label" parent="PanelDificultad/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0, 1)
+text = "NIVELES DE LÓGICA"
+horizontal_alignment = 1
+
+[node name="BotonFacil" type="Button" parent="PanelDificultad/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(3.946722e-06, 0.9219502, 0.117337994, 1)
+text = "Nivel Fácil"
+
+[node name="BotonMedio" type="Button" parent="PanelDificultad/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85993326, 0.8014561, 7.70092e-07, 1)
+text = "Nivel Medio"
+
+[node name="BotonDificil" type="Button" parent="PanelDificultad/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84922284, 0.14056394, 0.11478349, 1)
+text = "Nivel Dificil"
+
+[node name="BotonCancelar" type="Button" parent="PanelDificultad/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_34qer")
+theme_override_styles/pressed = ExtResource("5_lbaht")
+theme_override_styles/hover = ExtResource("5_lbaht")
+theme_override_styles/hover_pressed = ExtResource("5_lbaht")
+text = "CANCELAR"
+
+[node name="BotonVolver" type="Button" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 139.0
+offset_bottom = 90.0
+pivot_offset = Vector2(30, 30)
+theme_override_styles/normal = ExtResource("3_34qer")
+theme_override_styles/normal_mirrored = ExtResource("3_34qer")
+theme_override_styles/hover = SubResource("StyleBoxFlat_a0m6a")
+text = "VOLVER"
+
+[node name="ContenedorPuzles" type="CanvasLayer" parent="."]
