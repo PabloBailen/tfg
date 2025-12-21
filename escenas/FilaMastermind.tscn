@@ -1,0 +1,82 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqce7stdq7hdc"]
+
+[ext_resource type="Script" uid="uid://b4e3xuresnq70" path="res://script/fila_mastermind.gd" id="1_aj7gm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aj7gm"]
+bg_color = Color(0.56076795, 0.6987384, 0.5157461, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75216526, 0.83105475, 0.70161504, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vgbdq"]
+bg_color = Color(0, 0.5010492, 0.8024741, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.18679568, 0.893844, 1, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="FilaMastermind" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("1_aj7gm")
+
+[node name="NumeroIntento" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_aj7gm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hueco1" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgbdq")
+
+[node name="TextureRect" type="TextureRect" parent="Hueco1"]
+layout_mode = 2
+
+[node name="Hueco2" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgbdq")
+
+[node name="TextureRect" type="TextureRect" parent="Hueco2"]
+layout_mode = 2
+
+[node name="Hueco3" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgbdq")
+
+[node name="TextureRect" type="TextureRect" parent="Hueco3"]
+layout_mode = 2
+
+[node name="Hueco4" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgbdq")
+
+[node name="TextureRect" type="TextureRect" parent="Hueco4"]
+layout_mode = 2
+
+[node name="Hueco5" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vgbdq")
+
+[node name="TextureRect" type="TextureRect" parent="Hueco5"]
+layout_mode = 2

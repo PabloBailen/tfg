@@ -1,0 +1,190 @@
+[gd_scene load_steps=10 format=3 uid="uid://be705hqbm20x4"]
+
+[ext_resource type="Script" uid="uid://dgk5om1mfanlm" path="res://script/menu_principal.gd" id="1_bj1uy"]
+[ext_resource type="Texture2D" uid="uid://dem7y5quoaie7" path="res://assets/capi_titulo.jpg" id="2_ba235"]
+[ext_resource type="StyleBox" uid="uid://b7dw04famh27u" path="res://texturas/MenuPrincipal.tres" id="3_5dpk2"]
+[ext_resource type="StyleBox" uid="uid://4ofa34dkioik" path="res://texturas/MenuPrincipalH.tres" id="4_hagvj"]
+
+[sub_resource type="Gradient" id="Gradient_ba235"]
+offsets = PackedFloat32Array(0.42040816, 0.4244898, 1)
+colors = PackedColorArray(0.44, 0.2948, 0.17599998, 1, 0.080062084, 0.40168303, 0.32164165, 1, 0, 0.53188986, 0.91223264, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5dpk2"]
+gradient = SubResource("Gradient_ba235")
+
+[sub_resource type="Animation" id="Animation_ba235"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuLayout:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -500)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuLayout:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0oe1n"]
+resource_name = "intro_scroll"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuLayout:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -500), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuLayout:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5dpk2"]
+_data = {
+&"RESET": SubResource("Animation_ba235"),
+&"intro_scroll": SubResource("Animation_0oe1n")
+}
+
+[node name="MenuPrincipal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bj1uy")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ba235")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MenuLayout" type="VBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -500.0
+offset_bottom = 427.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="Titulo" type="Label" parent="MenuLayout"]
+clip_children = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.37280002, 0.17400002, 1)
+theme_override_colors/font_shadow_color = Color(0.7896043, 0.52322507, 0.22326249, 1)
+theme_override_colors/font_outline_color = Color(0.37122527, 0.19056755, 0.06008868, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_outline_size = 2
+theme_override_font_sizes/font_size = 60
+text = "CAPIBYTE: AVENTURA DIGITAL"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MenuLayout/Titulo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_5dpk2")
+
+[node name="Control" type="Control" parent="MenuLayout"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="ButtonLayout" type="VBoxContainer" parent="MenuLayout"]
+layout_mode = 2
+alignment = 1
+
+[node name="BotonJugar" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_colors/font_hover_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_styles/normal = ExtResource("3_5dpk2")
+theme_override_styles/pressed = ExtResource("4_hagvj")
+theme_override_styles/hover = ExtResource("4_hagvj")
+theme_override_styles/hover_pressed = ExtResource("4_hagvj")
+text = "JUGAR"
+
+[node name="BotonOpciones" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_colors/font_hover_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_styles/normal = ExtResource("3_5dpk2")
+theme_override_styles/pressed = ExtResource("4_hagvj")
+theme_override_styles/hover = ExtResource("4_hagvj")
+theme_override_styles/hover_pressed = ExtResource("4_hagvj")
+text = "OPCIONES"
+
+[node name="BotonCreditos" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_colors/font_hover_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_styles/normal = ExtResource("3_5dpk2")
+theme_override_styles/pressed = ExtResource("4_hagvj")
+theme_override_styles/hover = ExtResource("4_hagvj")
+theme_override_styles/hover_pressed = ExtResource("4_hagvj")
+text = "CRÉDITOS"
+
+[node name="BotonSalir" type="Button" parent="MenuLayout/ButtonLayout"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 8.0
+theme_override_colors/font_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_colors/font_hover_color = Color(0.11764706, 0.2509804, 0.6862745, 1)
+theme_override_styles/normal = ExtResource("3_5dpk2")
+theme_override_styles/pressed = ExtResource("4_hagvj")
+theme_override_styles/hover = ExtResource("4_hagvj")
+theme_override_styles/hover_pressed = ExtResource("4_hagvj")
+text = "SALIR DEL JUEGO"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5dpk2")
+}
+autoplay = "intro_scroll"

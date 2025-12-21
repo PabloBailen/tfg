@@ -1,0 +1,544 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvjpl14tcwws"]
+
+[ext_resource type="Script" uid="uid://cb4pjumoxre8p" path="res://script/puzle_nunca_cuatro.gd" id="1_6a6wx"]
+[ext_resource type="Texture2D" uid="uid://nntgcxecrxrf" path="res://assets/vacio.jpg" id="2_sky72"]
+[ext_resource type="Texture2D" uid="uid://vquhted1ctwl" path="res://assets/circulo.jpg" id="3_0ytqx"]
+[ext_resource type="Texture2D" uid="uid://hutpqm52xa8b" path="res://assets/equis.jpg" id="4_pxugv"]
+[ext_resource type="Texture2D" uid="uid://cpbn7om7qi2ko" path="res://assets/negro.jpg" id="5_eh0v1"]
+[ext_resource type="Texture2D" uid="uid://b5qqfl161s3w8" path="res://assets/patronhierba.png" id="6_am1vj"]
+[ext_resource type="Texture2D" uid="uid://ysro0p0c783h" path="res://assets/Capi2.png" id="7_g31lc"]
+[ext_resource type="Texture2D" uid="uid://bnh2r5f7c47l3" path="res://assets/Capi3.png" id="8_knq72"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0muox"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_g31lc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_g31lc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_knq72")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6a6wx")
+tex_vacia = ExtResource("2_sky72")
+tex_circulo = ExtResource("3_0ytqx")
+tex_cruz = ExtResource("4_pxugv")
+tex_bloqueada = ExtResource("5_eh0v1")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_am1vj")
+
+[node name="LayoutPrincipal" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelCapi" type="VBoxContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="CapiAnim" type="AnimatedSprite2D" parent="LayoutPrincipal/PanelCapi"]
+auto_translate_mode = 1
+position = Vector2(345, 690)
+scale = Vector2(0.65, 0.65)
+sprite_frames = SubResource("SpriteFrames_0muox")
+animation = &"idle"
+
+[node name="LabelMensaje" type="Label" parent="LayoutPrincipal/PanelCapi"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="PuzzleLayout" type="VBoxContainer" parent="LayoutPrincipal/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cuadricula" type="GridContainer" parent="LayoutPrincipal/CenterContainer/PuzzleLayout"]
+layout_mode = 2
+columns = 12
+
+[node name="TextureButton" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton2" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton3" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton4" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton5" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton6" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton7" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton8" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton9" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton10" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton11" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton12" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton13" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton14" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton15" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton16" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton17" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton18" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton19" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton20" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton21" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton22" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton23" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton24" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton25" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton26" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton27" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton28" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton29" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton30" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton31" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton32" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton33" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton34" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton35" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton36" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton37" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton38" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton39" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton40" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton41" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton42" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton43" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton44" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton45" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton46" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton47" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton48" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton49" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton50" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton51" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton52" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton53" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton54" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton55" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton56" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton57" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton58" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton59" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton60" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton61" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton62" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton63" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton64" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton65" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton66" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton67" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton68" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton69" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton70" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton71" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton72" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton73" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton74" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton75" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton76" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton77" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton78" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton79" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton80" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton81" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton82" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton83" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton84" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton85" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton86" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton87" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton88" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton89" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton90" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton91" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton92" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton93" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton94" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton95" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton96" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton97" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton98" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton99" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton100" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton101" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton102" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton103" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton104" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton105" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton106" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton107" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton108" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton109" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton110" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton111" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton112" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton113" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton114" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton115" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton116" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton117" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton118" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton119" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton120" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton121" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton122" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton123" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton124" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton125" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton126" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton127" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton128" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton129" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton130" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton131" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton132" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton133" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton134" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton135" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton136" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton137" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton138" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton139" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton140" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton141" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton142" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton143" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="TextureButton144" type="TextureButton" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/Cuadricula"]
+layout_mode = 2
+
+[node name="ButtonLayout" type="HBoxContainer" parent="LayoutPrincipal/CenterContainer/PuzzleLayout"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="BotonComprobar" type="Button" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/ButtonLayout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52100307, 1, 0.5765099, 1)
+theme_override_colors/font_focus_color = Color(0.29006356, 0.604902, 0.35197523, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+text = "Comprobar"
+
+[node name="BotonSalir" type="Button" parent="LayoutPrincipal/CenterContainer/PuzzleLayout/ButtonLayout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96280235, 0.2449837, 0.36194044, 1)
+text = "Salir"

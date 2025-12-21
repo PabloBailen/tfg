@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj8sfcro44gsx"]
+
+[ext_resource type="Script" uid="uid://ptf4dofmynnr" path="res://script/menu_niveles_logica.gd" id="1_60jci"]
+
+[node name="MundoLogicaTest" type="Node2D"]
+script = ExtResource("1_60jci")
+
+[node name="ContenedorPuzles" type="CanvasLayer" parent="."]
+
+[node name="BotonProbarPuzle" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 495.0
+offset_top = 284.0
+offset_right = 658.0
+offset_bottom = 315.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+localize_numeral_system = false
+theme_override_colors/font_color = Color(0.44173416, 0.9782365, 0.9225324, 1)
+theme_override_colors/font_disabled_color = Color(0.37143007, 0.5817999, 0.800988, 0.5019608)
+theme_override_colors/font_outline_color = Color(0.06851626, 0.17500135, 0.25984687, 1)
+text = "Probar Puzle Nivel 5"

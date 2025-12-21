@@ -1,0 +1,352 @@
+[gd_scene load_steps=22 format=3 uid="uid://bwpj3yvorr3kd"]
+
+[ext_resource type="Script" uid="uid://dqrtm664vgh2u" path="res://script/mastermind.gd" id="1_574xq"]
+[ext_resource type="Texture2D" uid="uid://d0ahiq4mr2ia8" path="res://assets/fondo_master.png" id="2_0m284"]
+[ext_resource type="StyleBox" uid="uid://bh5ef2ky1rlai" path="res://texturas/Hueco_master.tres" id="3_0m284"]
+[ext_resource type="Texture2D" uid="uid://ysro0p0c783h" path="res://assets/Capi2.png" id="3_8wtqw"]
+[ext_resource type="StyleBox" uid="uid://ddfl0kpk4xjqf" path="res://texturas/Volver.tres" id="3_i0eyp"]
+[ext_resource type="Texture2D" uid="uid://brgrgsivfg37c" path="res://assets/capi_juego.png" id="3_qe3i0"]
+[ext_resource type="Texture2D" uid="uid://cw7vdy6q4fdio" path="res://assets/raton.png" id="4_lbxbo"]
+[ext_resource type="Texture2D" uid="uid://bnh2r5f7c47l3" path="res://assets/Capi3.png" id="4_s8bfh"]
+[ext_resource type="Texture2D" uid="uid://b00kwfc26gdrd" path="res://assets/hamster.png" id="5_xaqbk"]
+[ext_resource type="Texture2D" uid="uid://d0xj8x0vm5rqk" path="res://assets/ardilla.png" id="6_oxnfm"]
+[ext_resource type="Texture2D" uid="uid://c76du1grxf45m" path="res://assets/castor.png" id="7_qe3i0"]
+[ext_resource type="Texture2D" uid="uid://k3b2aiahuj76" path="res://assets/erizo.png" id="8_0dr0s"]
+[ext_resource type="StyleBox" uid="uid://b7dw04famh27u" path="res://texturas/MenuPrincipal.tres" id="10_oxnfm"]
+[ext_resource type="StyleBox" uid="uid://dqj5nphrw1e0e" path="res://texturas/VolverH.tres" id="10_qe3i0"]
+[ext_resource type="Texture2D" uid="uid://d123ds022jj82" path="res://assets/reloj.png" id="14_s8bfh"]
+
+[sub_resource type="Theme" id="Theme_0dr0s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ywgj7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0m284"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0m284"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8wtqw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8wtqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_s8bfh")
+}],
+"loop": true,
+"name": &"talking",
+"speed": 5.0
+}]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_s8bfh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kxi7o"]
+bg_color = Color(0.6800455, 0, 0.004753778, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45846653, 0.03923065, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Mastermind" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_574xq")
+
+[node name="Fondo" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_0m284")
+
+[node name="LayoutPrincipal" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_0dr0s")
+alignment = 1
+
+[node name="LayoutJuego" type="HBoxContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="PanelInfo" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ywgj7")
+
+[node name="Label" type="Label" parent="LayoutPrincipal/LayoutJuego/PanelInfo"]
+layout_mode = 2
+
+[node name="ZonaTablero" type="VBoxContainer" parent="LayoutPrincipal/LayoutJuego"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="TableroJuego" type="VBoxContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 7.0
+alignment = 1
+
+[node name="ListaIntentos" type="VBoxContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="LayoutPrincipal/LayoutJuego/ZonaTablero"]
+layout_mode = 2
+
+[node name="FilaActual" type="HBoxContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_0m284")
+
+[node name="TextureRect" type="TextureRect" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual/PanelContainer"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer2" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_0m284")
+
+[node name="TextureRect" type="TextureRect" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual/PanelContainer2"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer3" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_0m284")
+
+[node name="TextureRect" type="TextureRect" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual/PanelContainer3"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer4" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_0m284")
+
+[node name="TextureRect" type="TextureRect" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual/PanelContainer4"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer5" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_0m284")
+
+[node name="TextureRect" type="TextureRect" parent="LayoutPrincipal/LayoutJuego/ZonaTablero/FilaActual/PanelContainer5"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Selectores" type="HBoxContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero"]
+layout_mode = 2
+
+[node name="Acciones" type="HBoxContainer" parent="LayoutPrincipal/LayoutJuego/ZonaTablero"]
+layout_mode = 2
+
+[node name="PanelEstado" type="PanelContainer" parent="LayoutPrincipal/LayoutJuego"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0m284")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LayoutPrincipal/LayoutJuego/PanelEstado"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="LayoutPrincipal/LayoutJuego/PanelEstado/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="LayoutPrincipal/LayoutJuego/PanelEstado/VBoxContainer"]
+layout_mode = 2
+
+[node name="MensajeWrapper" type="MarginContainer" parent="LayoutPrincipal/LayoutJuego/PanelEstado/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_bottom = 50
+
+[node name="LabelMensaje" type="Label" parent="LayoutPrincipal/LayoutJuego/PanelEstado/VBoxContainer/MensajeWrapper"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="CapiAnim" type="AnimatedSprite2D" parent="LayoutPrincipal/LayoutJuego/PanelEstado/VBoxContainer"]
+auto_translate_mode = 1
+position = Vector2(234, 783)
+scale = Vector2(0.46809998, 0.4985)
+sprite_frames = SubResource("SpriteFrames_0m284")
+animation = &"talking"
+flip_h = true
+
+[node name="Intentos" type="VBoxContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HistorialIntentos" type="VBoxContainer" parent="LayoutPrincipal/Intentos"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="IntentosActual" type="HBoxContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HuecoJugador" type="TextureRect" parent="LayoutPrincipal/IntentosActual"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_s8bfh")
+
+[node name="HuecoJugador2" type="TextureRect" parent="LayoutPrincipal/IntentosActual"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_s8bfh")
+
+[node name="HuecoJugador3" type="TextureRect" parent="LayoutPrincipal/IntentosActual"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_s8bfh")
+
+[node name="HuecoJugador4" type="TextureRect" parent="LayoutPrincipal/IntentosActual"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_s8bfh")
+
+[node name="HuecoJugador5" type="TextureRect" parent="LayoutPrincipal/IntentosActual"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_s8bfh")
+
+[node name="Selectores" type="HBoxContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+alignment = 1
+
+[node name="BotonCapi" type="TextureButton" parent="LayoutPrincipal/Selectores"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("3_qe3i0")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BotonRaton" type="TextureButton" parent="LayoutPrincipal/Selectores"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("4_lbxbo")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BotonHamster" type="TextureButton" parent="LayoutPrincipal/Selectores"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("5_xaqbk")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BotonArdilla" type="TextureButton" parent="LayoutPrincipal/Selectores"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("6_oxnfm")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BotonCastor" type="TextureButton" parent="LayoutPrincipal/Selectores"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("7_qe3i0")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="BotonErizo" type="TextureButton" parent="LayoutPrincipal/Selectores"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture_normal = ExtResource("8_0dr0s")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Botones" type="HBoxContainer" parent="LayoutPrincipal"]
+layout_mode = 2
+alignment = 1
+
+[node name="BotonBorrar" type="Button" parent="LayoutPrincipal/Botones"]
+custom_minimum_size = Vector2(160, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_i0eyp")
+theme_override_styles/pressed = ExtResource("10_qe3i0")
+theme_override_styles/hover = ExtResource("10_qe3i0")
+theme_override_styles/hover_pressed = ExtResource("10_qe3i0")
+text = "Borrar"
+
+[node name="BotonAceptar" type="Button" parent="LayoutPrincipal/Botones"]
+custom_minimum_size = Vector2(160, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("10_oxnfm")
+theme_override_styles/pressed = ExtResource("10_oxnfm")
+theme_override_styles/hover = ExtResource("10_oxnfm")
+theme_override_styles/hover_pressed = ExtResource("10_oxnfm")
+text = "Comprobar"
+
+[node name="BarraSuperior" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 40.0
+offset_right = 1182.0
+offset_bottom = 90.0
+theme_override_constants/separation = 40
+
+[node name="BotonVolver" type="Button" parent="BarraSuperior"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("3_i0eyp")
+theme_override_styles/normal_mirrored = ExtResource("3_i0eyp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kxi7o")
+text = "VOLVER"
+
+[node name="TimerWrapper" type="HBoxContainer" parent="BarraSuperior"]
+layout_mode = 2
+alignment = 1
+
+[node name="IconoReloj" type="TextureRect" parent="BarraSuperior/TimerWrapper"]
+layout_mode = 2
+texture = ExtResource("14_s8bfh")
+
+[node name="LabelTiempo" type="Label" parent="BarraSuperior/TimerWrapper"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = ExtResource("10_oxnfm")
+horizontal_alignment = 1
+
+[node name="TimerJuego" type="Timer" parent="."]
+autostart = true

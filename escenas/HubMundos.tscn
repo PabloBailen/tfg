@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://br3wm6jie1ed1"]
+
+[ext_resource type="Script" uid="uid://creo7lascf7ru" path="res://script/hubmundos.gd" id="1_8na0k"]
+[ext_resource type="Texture2D" uid="uid://g4eph2o4engl" path="res://assets/patron_mundo.png" id="2_4kgyk"]
+[ext_resource type="StyleBox" uid="uid://ddfl0kpk4xjqf" path="res://texturas/Volver.tres" id="3_b26f4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tr1dq"]
+bg_color = Color(0.6800455, 0, 0.004753778, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.45846653, 0.03923065, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HubMundos" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8na0k")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4kgyk")
+stretch_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridMundos" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 120
+theme_override_constants/v_separation = 30
+columns = 4
+
+[node name="BotonVolver" type="Button" parent="."]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 139.0
+offset_bottom = 90.0
+pivot_offset = Vector2(30, 30)
+theme_override_styles/normal = ExtResource("3_b26f4")
+theme_override_styles/normal_mirrored = ExtResource("3_b26f4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_tr1dq")
+text = "VOLVER"
